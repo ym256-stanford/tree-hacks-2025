@@ -6,7 +6,7 @@ import OpenAI from "openai";
 dotenv.config();
 const app = express();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const custom_prompt = "Can you replace the following word with a simpler one? "
+const custom_prompt = "Replace the following word with a simpler one. Only answer with one word."
 
 app.use(express.json());
 app.use(cors());
@@ -21,7 +21,8 @@ app.post("/chat", async (req, res) => {
     }
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{role: "system", content : custom_prompt},{ role: "user", content: message }],
+      messages: [{role: "system", content : custom_prompt},
+        { role: "user", content: message }],
     });
     console.log("OpenAI response:", response.data);
     res.json({ reply: response.choices[0].message.content });
