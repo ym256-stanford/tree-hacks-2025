@@ -1,11 +1,15 @@
 import React from 'react'
+import {Outlet} from 'react-router-dom'
 
 const TextPage = () => {
   return (
-    <div>
+    <>
+    <Outlet/>
+    <h2>
       Upload your text here!
-    </div>
+    </h2>
+    </>
   )
-}
+};
 
-export default TextPage
+export default TextPage;
