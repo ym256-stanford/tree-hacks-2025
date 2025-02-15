@@ -8,7 +8,7 @@ import ClickableWordsPreloaded from '../components/ClickableWordsPreloaded';
 const TextPage = () => {
   return (
     <div>
-    <ClickableWordsPreloaded text={"Flummoxed intricate magnanimous inorganic"} ></ClickableWordsPreloaded>
+    <ClickableWordsPreloaded text={"Flummoxed intricate magnanimous Flummoxed inorganic"} ></ClickableWordsPreloaded>
     </div>
   )
 }
