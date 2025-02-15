@@ -4,15 +4,10 @@ import Navbar from '../components/Navbar.jsx'
 
 const MainLayout = () => {
   return (
-    <>
-    <Navbar/>
     <div>
-        <Outlet/>
+      <Outlet />
     </div>
-    <h2>This on every page.</h2>
+  );
+};
 
-    </>
-  )
-}
-
-export default MainLayout
+export default MainLayout;
