@@ -1,10 +1,9 @@
 import React from 'react'
-import {Outlet} from 'react-router-dom'
+import ClickableWords from '../components/ClickableWords';
 
 const UploadPage = () => {
   return (
     <>
-    <Outlet/>
     <div>
       Upload your file here.
     </div>
