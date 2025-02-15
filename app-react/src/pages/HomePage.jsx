@@ -1,10 +1,9 @@
 import React from 'react'
-import {Outlet} from 'react-router-dom'
 
 const HomePage = () => {
   return (
     <>
-    <Outlet/>
+    <div className="bg-red-500 p-4 text-white">Test</div>
     <div>
       Reading has never been easier!
     </div>

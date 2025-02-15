@@ -2,8 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+//backend
+import axios from "axios";
+// pages
 import {Route, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom'
-
 import MainLayout from './layouts/MainLayout'
 import HomePage from './pages/HomePage'
 import UploadPage from './pages/UploadPage'

@@ -9,7 +9,6 @@ const MainLayout = () => {
     <div>
         <Outlet/>
     </div>
-    <h2>This on every page.</h2>
 
     </>
   )
