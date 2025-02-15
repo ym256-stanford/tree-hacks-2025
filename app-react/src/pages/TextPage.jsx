@@ -2,12 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import axios from "axios";
 import ClickableWords from '../components/ClickableWords';
+import ClickableWordsPreloaded from '../components/ClickableWordsPreloaded';
 
 
 const TextPage = () => {
   return (
     <div>
-    <ClickableWords text={"Flummoxed intricate magnanimous inorganic"} ></ClickableWords>
+    <ClickableWordsPreloaded text={"Flummoxed intricate magnanimous inorganic"} ></ClickableWordsPreloaded>
     </div>
   )
 }
