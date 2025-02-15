@@ -1,12 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Navbar from '../components/Navbar.jsx'
 
 const MainLayout = () => {
   return (
-    <h1>
+    <>
+    <Navbar/>
+    <div>
         <Outlet/>
-        <h2>This on every page.</h2>
-    </h1>
+    </div>
+    <h2>This on every page.</h2>
+
+    </>
   )
 }
 
