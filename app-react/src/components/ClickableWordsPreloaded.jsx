@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { replaceWordPreservePunctuation, range, cleanWord } from '../utils';
-
+import Clear from "./Clear";
 
 const ClickableWordsPreloaded = ({ text }) => {
     const clickTimeoutRef = useRef(null);
@@ -13,7 +13,14 @@ const ClickableWordsPreloaded = ({ text }) => {
   const [clickedWords, setClickedWords] = useState(new Map());
   const [loading, setLoading] = useState(false);
 
-
+const reset = () => {
+    console.log("resetting")
+    setHighlightedWords(new Set())
+    for (key in wordStates) {
+        wordStates[key] = 0
+    }
+    modifyText(text.split(" "))
+}
 
   useEffect(() => {
     const preloadReplacements = async () => {
@@ -123,11 +130,12 @@ const ClickableWordsPreloaded = ({ text }) => {
 
   return (
     <>
-      {loading && <p>Loading...</p>} 
+      {loading ? (<p>Loading...</p>) :  ( <div>
+        <Clear onClick = {reset} />
       <div>{renderText()}</div>
       {clickedWords.size > 0 && (
         <div style={{ marginTop: "20px" }}>
-          <h3>Clicked Words Dictionary</h3>
+          <h3>Vocab List</h3>
           <ul>
             {[...clickedWords.entries()].map(([word, replacement], index) => (
               <li key={index}>
@@ -136,7 +144,8 @@ const ClickableWordsPreloaded = ({ text }) => {
             ))}
           </ul>
         </div>
-      )}
+      )} 
+      </div> )}
     </>
   );
 };

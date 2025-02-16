@@ -7,7 +7,6 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB limit
 const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate(); // For navigation
-
   // Only allow .txt files
   const allowedTypes = ["text/plain"]; // .txt only
 

@@ -42,7 +42,7 @@ const HomePage = () => {
 
           {/* Call-to-Action Button - Now Uses NavLink */}
           <NavLink
-            to="/text" // Navigate to TextPage
+            to="/upload" // Navigate to TextPage
             style={{
               width: "451px",
               height: "108px",

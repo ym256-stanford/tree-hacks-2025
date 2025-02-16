@@ -1,12 +1,17 @@
 import React from 'react';
 import ClickableWordsPreloaded from '../components/ClickableWordsPreloaded';
 import Clear from '../components/Clear';
+import { useLocation } from "react-router-dom";
 
 const TextPage = () => {
+    const location = useLocation();
+  const textContent = location.state?.content || "No text provided"; // Get the passed text
+    const textTitle = location.state?.name || "No text provided";
   return (
     <div 
       style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh", // Ensures vertical centering
@@ -16,6 +21,14 @@ const TextPage = () => {
       }}
       className = "relative"
     >
+        <h1 
+         style={{
+            fontSize: "36px",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: "20px", // Adds spacing below the title
+          }}
+        >{textTitle}</h1>
       <div 
         style={{
           fontSize: "30px", // Adjusted text size
@@ -28,7 +41,7 @@ const TextPage = () => {
         }}
       >
         <ClickableWordsPreloaded 
-          text={"The cellular components of prokaryotes are not enclosed in membranes within the cytoplasm, like eukaryotic organelles. Bacteria have microcompartments, quasi-organelles enclosed in protein shells such as encapsulin protein cages, while both bacteria and some archaea have gas vesicles. Prokaryotes have simple cell skeletons. These are highly diverse, and contain homologues of the eukaryote proteins actin and tubulin. The cytoskeleton provides the capability for movement within the cell. "} 
+          text={textContent} 
         />
         
       </div>
