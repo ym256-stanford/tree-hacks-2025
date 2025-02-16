@@ -67,7 +67,7 @@ const UploadPage = () => {
           <div className="w-[942px] h-[94px] flex flex-col justify-start items-start px-[44px] gap-[10px]">
             <div className="flex flex-col justify-center items-center gap-4">
               <h2 className="text-gray-800 text-[34px] font-medium">Upload a TXT File</h2>
-              <p className="text-gray-500 text-[29px]">Only .txt files are supported</p>
+            {/*  <p className="text-gray-500 text-[29px]">Only .txt files are supported</p> */}
             </div>
             <hr className="w-full border-t-2 border-gray-300 mt-2" />
           </div>

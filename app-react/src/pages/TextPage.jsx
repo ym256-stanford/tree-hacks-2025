@@ -43,9 +43,7 @@ const TextPage = () => {
           width: "100%", // Ensures full width for alignment
         }}
       >
-        <ClickableWordsPreloaded 
-          text={textContent} 
-        />
+        { textContent ? <ClickableWordsPreloaded text={textContent} /> : <p>Loading...</p> }
         
       </div>
     </div>
