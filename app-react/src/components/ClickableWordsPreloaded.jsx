@@ -25,7 +25,8 @@ const ClickableWordsPreloaded = ({ text }) => {
             } else {
             const message = word
             const res = await axios.post("http://localhost:5005/chat/all", { message });
-            newReplacements[word] = res.data.reply; // | word
+
+            newReplacements[word] = [...new Set(res.data.reply.map(str => str.toLowerCase()))]; // | word
             }
           })
         );

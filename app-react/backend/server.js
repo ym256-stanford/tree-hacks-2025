@@ -6,7 +6,7 @@ import OpenAI from "openai";
 dotenv.config();
 const app = express();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const custom_prompt = "Replace the following word with a simpler one. Only answer with one word."
+const custom_prompt = "Replace the following word with a simpler one. Limit your response to a single word. Be creative."
 
 app.use(express.json());
 app.use(cors());
