@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { replaceWordPreservePunctuation, range, cleanWord } from '../utils';
 import Clear from "./Clear";
+import Back from "./Back"
+
 
 const ClickableWordsPreloaded = ({ text }) => {
     const clickTimeoutRef = useRef(null);
@@ -131,6 +133,7 @@ const reset = () => {
   return (
     <>
       {loading ? (<p>Loading...</p>) :  ( <div>
+        <Back/>
         <Clear onClick = {reset} />
       <div>{renderText()}</div>
       {clickedWords.size > 0 && (

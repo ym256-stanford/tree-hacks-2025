@@ -5,8 +5,8 @@ const Clear = ({ onClick }) => {
     <button
       onClick={onClick} 
       style={{
-        backgroundColor: "red",
-        color: "white",
+        backgroundColor: "white",
+        color: "black",
         padding: "10px 20px",
         borderRadius: "8px",
         position: "fixed",
@@ -14,6 +14,7 @@ const Clear = ({ onClick }) => {
         right: "10px",
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
         zIndex: 50,
+        border: "2px solid black"
       }}
     >
       Clear

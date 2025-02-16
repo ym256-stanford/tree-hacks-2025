@@ -1,13 +1,16 @@
 import React from 'react';
 import ClickableWordsPreloaded from '../components/ClickableWordsPreloaded';
 import Clear from '../components/Clear';
+import Back from '../components/Back';
+import { NavLink } from "react-router-dom"; // Import NavLink
 import { useLocation } from "react-router-dom";
 
 const TextPage = () => {
     const location = useLocation();
   const textContent = location.state?.content || "No text provided"; // Get the passed text
-    const textTitle = location.state?.name || "No text provided";
+    const textTitle = location.state?.name.replace(/\.txt$/, "") || "No text provided";
   return (
+    <>
     <div 
       style={{
         display: "flex",
@@ -46,6 +49,7 @@ const TextPage = () => {
         
       </div>
     </div>
+    </>
   );
 };
 
