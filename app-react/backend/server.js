@@ -27,7 +27,7 @@ app.post("/chat/all", async (req, res) => {
 
       messages: [{role: "system", content : custom_prompt},
         { role: "user", content: message }],
-        n : 5
+        n : 2
     })
     console.log("OpenAI response:", response);
     console.log("as list", response.choices.map((x) => x.message.content))
