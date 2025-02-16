@@ -1,5 +1,6 @@
 import React from 'react';
 import ClickableWordsPreloaded from '../components/ClickableWordsPreloaded';
+import Clear from '../components/Clear';
 
 const TextPage = () => {
   return (
@@ -13,6 +14,7 @@ const TextPage = () => {
         backgroundColor: "#f9f9f9", // Optional background color
         width: "100%",
       }}
+      className = "relative"
     >
       <div 
         style={{
@@ -28,6 +30,7 @@ const TextPage = () => {
         <ClickableWordsPreloaded 
           text={"The cellular components of prokaryotes are not enclosed in membranes within the cytoplasm, like eukaryotic organelles. Bacteria have microcompartments, quasi-organelles enclosed in protein shells such as encapsulin protein cages, while both bacteria and some archaea have gas vesicles. Prokaryotes have simple cell skeletons. These are highly diverse, and contain homologues of the eukaryote proteins actin and tubulin. The cytoskeleton provides the capability for movement within the cell. "} 
         />
+        
       </div>
     </div>
   );
