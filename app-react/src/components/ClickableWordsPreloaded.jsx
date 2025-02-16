@@ -35,7 +35,10 @@ const reset = () => {
             if (!newReplacements[cleanedWord]) {
               const message = cleanedWord;
               const res = await axios.post("http://localhost:5005/chat/all", { message });
-              newReplacements[cleanedWord] = [...new Set(res.data.reply.map(str => str.toLowerCase()))];
+              const replacementList = [...new Set(res.data.reply.map(str => str.toLowerCase()))];
+              const finalReplacements = replacementList.filter((item) => item != cleanedWord)
+              newReplacements[cleanedWord] = finalReplacements 
+
             }
           })
         );
@@ -60,14 +63,21 @@ const reset = () => {
       clearTimeout(clickTimeoutRef.current);
       clickTimeoutRef.current = null;
     }
+    const safeRaw = rawWord.replace(/[^\w-\s]|_/g, '')
     clickTimeoutRef.current = setTimeout(() => {
         console.log("single click")
-        modifiedText[index] = originalWord
+        console.log("orig word", originalWord)
+        modifiedText[index] = replaceWordPreservePunctuation(rawWord, safeRaw, originalWord)
         modifyText(modifiedText)
-        highlightedWords.delete(index)
-        setHighlightedWords(highlightedWords);
+
+
+        const updatedHighlightedWords = new Set(highlightedWords);
+        updatedHighlightedWords.delete(index);
+        setHighlightedWords(updatedHighlightedWords);
         wordStates[index] = 0
         setWordState(wordStates)
+        console.log(modifiedText)
+        console.log("done")
     }, 250)
 }
 
@@ -81,7 +91,7 @@ const reset = () => {
    //   console.log("raw to search for:", rawWord)
     const curWordState = wordStates[index]
     const possibleSwaps = wordReplacements[originalWord]
-    const safeRaw = rawWord.replace(/[^\w\s]|_/g, '')
+    const safeRaw = rawWord.replace(/[^\w-\s]|_/g, '')
 
     if (curWordState < possibleSwaps.length) {
         const newWord = possibleSwaps[curWordState]
@@ -112,7 +122,7 @@ const reset = () => {
         // also remove punctuation from each
     return modifiedText.map((word, index) => {
         //cleanWord = word without punctuation and all lowercase
-        const currWordCleaned = word.replace(/[^\w\s]|_/g, '').toLowerCase()
+        const currWordCleaned = word.replace(/[^\w-\s]|_/g, '').toLowerCase()
       //  console.log(originalWord)
       const originalWord = originalWords[index];
       const originalWordCleaned = cleanWord(originalWord)
