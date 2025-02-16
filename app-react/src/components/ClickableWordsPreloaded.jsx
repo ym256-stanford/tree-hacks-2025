@@ -136,7 +136,7 @@ const handleWordClick = (word,originalWord,rawWord, index) => {
    /* modifyText((prev) => prev.replace(new RegExp(`\\b${word}\\b`, "g"), newWord));
     setHighlightedWords((prev) => new Set(prev).add(cleanedWord));
     setWordState({ ...wordStates });*/
-    setClickedWords((prev) => new Map(prev).set(originalWord, possibleSwaps[curWordState] || cleanedWord));
+    setClickedWords((prev) => new Map(prev).set(originalWord, possibleSwaps[curWordState] || originalWord));
   };
 
   const renderText = () => {
