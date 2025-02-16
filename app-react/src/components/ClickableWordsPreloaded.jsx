@@ -1,22 +1,50 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef, useEffect} from "react";
 import axios from "axios";
 
 const ClickableWordsPreloaded = ({ text }) => {
-const clickTimeoutRef = useRef(null);
+    const clickTimeoutRef = useRef(null);
+    const allWords = text.split(" ")
   const [highlightedWords, setHighlightedWords] = useState(new Set());
   const [modifiedText, modifyText] = useState(text)
-  const wordReplacements = {"Flummoxed" : ["confused", "baffled"],
-                             "intricate" : ["complex", "ornate"],
-                             "magnanimous" : ["generous","giving"],
-                             "inorganic" : ["fake", "nonliving"]}
-
-    const initialState = {"Flummoxed" : 0,
-                             "intricate" : 0,
-                             "magnanimous" : 0,
-                             "inorganic" : 0}
-  const [wordStates, setWordState] = useState(initialState)
+    const [wordReplacements, setReplacements] = useState({})
+    const [wordStates, setWordState] = useState({})
  // const [response, setResponse] = useState("")
-  //const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+
+  useEffect(() => {
+    const preloadReplacements = async () => {
+        setLoading(true)
+      const newReplacements = {};
+      try {
+        await Promise.all(
+          allWords.map(async (word) => {
+            if (word in newReplacements){
+                
+            } else {
+            const message = word
+            const res = await axios.post("http://localhost:5005/chat/all", { message });
+            newReplacements[word] = res.data.reply; // | word
+            }
+          })
+        );
+      } catch (error) {
+        console.error("Error preloading replacements:", error);
+      } finally {
+        setReplacements(newReplacements);
+        const initialState = allWords.reduce((obj, key) => {
+            obj[key] = 0; // or any default value
+            return obj;
+          }, {});
+        setWordState(initialState)
+        setLoading(false);
+      }
+    };
+
+    preloadReplacements();
+  }, [text]);
+
 
   const handleWordClickSingle = (word,originalWord) => {
    // if (loading) return;
@@ -68,6 +96,7 @@ const handleWordClick = (word,originalWord) => {
     // Split the text into words, and wrap them in span tags
     console.log(highlightedWords)
     console.log(wordStates)
+    console.log(wordReplacements)
     const words = modifiedText.split(" ");
     const originalWords = text.split(" ");
     return words.map((word, index) => {
@@ -91,9 +120,9 @@ const handleWordClick = (word,originalWord) => {
 
   return (
     <>
+    {loading && <p>Loading...</p>} 
     <div>{renderText()}</div>
     </>
   )
 };
-// {loading && <p>Loading replacement...</p>} 
 export default ClickableWordsPreloaded;
