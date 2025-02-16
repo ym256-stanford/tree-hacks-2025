@@ -6,7 +6,7 @@ import OpenAI from "openai";
 dotenv.config();
 const app = express();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const custom_prompt = "Replace the following word with a simpler one. Limit your response to a single word. Be creative."
+const custom_prompt = "Replace the following word with a simpler one. Limit your response to a single unhyphenated word. Be creative."
 
 app.use(express.json());
 app.use(cors());
@@ -22,7 +22,7 @@ app.post("/chat/all", async (req, res) => {
       model: "gpt-4o",
       messages: [{role: "system", content : custom_prompt},
         { role: "user", content: message }],
-        n : 5
+        n : 3
     })
     console.log("OpenAI response:", response);
     console.log("as list", response.choices.map((x) => x.message.content))
