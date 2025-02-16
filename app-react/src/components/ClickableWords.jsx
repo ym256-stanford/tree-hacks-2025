@@ -13,8 +13,9 @@ const ClickableWords = ({ text }) => {
     const message = word
     console.log(message)
         try {
-          const res = await axios.post(`http://localhost:5005/chat`,  { message } );;
-
+          const res = await axios.post(`http://localhost:5005/chat/any`,  { message } );
+          console.log("up next")
+          console.log(res.data.reply)
           modifyText((prev) =>
             prev.replace(new RegExp(`\\b${word}\\b`, "g"), res.data.reply)
             )

@@ -26,7 +26,7 @@ const TextPage = () => {
         }}
       >
         <ClickableWordsPreloaded 
-          text={"Flummoxed intricate magnanimous Flummoxed inorganic, Flummoxed intricate magnanimous Flummoxed inorganic, "} 
+          text={"Flummoxed intricate magnanimous flummoxed inorganic, Flummoxed intricate magnanimous Flummoxed inorganic,"} 
         />
       </div>
     </div>
