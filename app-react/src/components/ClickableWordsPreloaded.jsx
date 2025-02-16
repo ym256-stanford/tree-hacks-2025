@@ -3,10 +3,12 @@ import axios from "axios";
 import { replaceWordPreservePunctuation, range, cleanWord } from '../utils';
 import Clear from "./Clear";
 import Back from "./Back"
+import ClickableWordsDefinition from "./ClickableWordsDefinition";
 
 
 const ClickableWordsPreloaded = ({ text }) => {
     const clickTimeoutRef = useRef(null);
+    const allWordsOrig = text.split(" ")
     const allWords = text.split(" ").map((word) => word.toLowerCase().replace(/[^\w\s]|_/g, ''))
   const [highlightedWords, setHighlightedWords] = useState(new Set());
   const [modifiedText, modifyText] = useState(text.split(" "));
@@ -18,10 +20,14 @@ const ClickableWordsPreloaded = ({ text }) => {
 const reset = () => {
     console.log("resetting")
     setHighlightedWords(new Set())
-    for (key in wordStates) {
-        wordStates[key] = 0
-    }
-    modifyText(text.split(" "))
+    const newWordStates = {}
+    const backState = range(0,allWords.length).reduce((obj, key) => {
+        obj[key] = 0;
+        return obj;
+      }, {});
+      setWordState(backState);
+    const newText = text.split(" ")
+    modifyText(newText)
 }
 
   useEffect(() => {
@@ -69,8 +75,6 @@ const reset = () => {
         console.log("orig word", originalWord)
         modifiedText[index] = replaceWordPreservePunctuation(rawWord, safeRaw, originalWord)
         modifyText(modifiedText)
-
-
         const updatedHighlightedWords = new Set(highlightedWords);
         updatedHighlightedWords.delete(index);
         setHighlightedWords(updatedHighlightedWords);
@@ -114,7 +118,10 @@ const reset = () => {
         setWordState(wordStates)
     }
     setClickedWords((prev) => new Map(prev).set(originalWord, possibleSwaps[curWordState] || word));
-  };
+  // if not in set of clicked words
+    //if 
+  //fetch definition
+    };
 
   const renderText = () => {
     console.log(wordReplacements)
