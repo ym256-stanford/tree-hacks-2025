@@ -1,38 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { replaceWordPreservePunctuation, range, cleanWord } from '../utils';
 
-function replaceWordPreservePunctuation(text, word, replacement) {
-    const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape regex characters
-    const regex = new RegExp(`(\\W*)\\b(${escapedWord})\\b(\\W*)`, "gi"); // Capture surrounding punctuation
-  
-    return text.replace(regex, (match, before, matchedWord, after) => {
-      return before + matchCase(matchedWord, replacement) + after;
-    });
-  }
-  
-function matchCase(original, replacement) {
-    if (original.length == 1 & original == original.toUpperCase()){
-        return replacement.charAt(0).toUpperCase() + replacement.slice(1).toLowerCase();
-    }
-    if (original === original.toUpperCase()) {
-      return replacement.toUpperCase(); // ALL CAPS
-    }
-    if (original === original.toLowerCase()) {
-      return replacement.toLowerCase(); // all lowercase
-    }
-    if (original[0] === original[0].toUpperCase()) {
-      return replacement.charAt(0).toUpperCase() + replacement.slice(1).toLowerCase(); // Title Case
-    }
-    return replacement; // Default to replacement as-is
-  }
-
-  function range(start, end) {
-    return Array.from({ length: end - start + 1 }, (_, index) => start + index);
-  }
-
-  const cleanWord = (word) => {
-    return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-  };
 
 const ClickableWordsPreloaded = ({ text }) => {
     const clickTimeoutRef = useRef(null);
@@ -93,16 +62,6 @@ const ClickableWordsPreloaded = ({ text }) => {
     }, 250)
 }
 
-/*
-const handleWordClick = (word,originalWord,rawWord, index) => {
-      modifyText((prev) => prev.replace(new RegExp(`\\b${word}\\b`, "g"), originalWord));
-      highlightedWords.delete(originalWord);
-      setHighlightedWords(new Set(highlightedWords));
-      wordStates[originalWord] = 0;
-      setWordState({ ...wordStates });
-    };
-  }; */
-
   const handleWordClick = (rawWord, word, originalWord, index) => {
     if (clickTimeoutRef.current) {
         clearTimeout(clickTimeoutRef.current); // Cancel single-click action
@@ -114,13 +73,6 @@ const handleWordClick = (word,originalWord,rawWord, index) => {
     const curWordState = wordStates[index]
     const possibleSwaps = wordReplacements[originalWord]
     const safeRaw = rawWord.replace(/[^\w\s]|_/g, '')
-  /*    clearTimeout(clickTimeoutRef.current);
-      clickTimeoutRef.current = null;
-    } 
-    const cleanedWord = cleanWord(originalWord);
-    const curWordState = wordStates[cleanedWord];
-    const possibleSwaps = wordReplacements[cleanedWord];
-    let newWord = cleanedWord; */
 
     if (curWordState < possibleSwaps.length) {
         const newWord = possibleSwaps[curWordState]
@@ -133,8 +85,7 @@ const handleWordClick = (word,originalWord,rawWord, index) => {
         wordStates[index] += 1
         setWordState(wordStates)
         console.log("doing swap")
-     // newWord = possibleSwaps[curWordState];
-    //  wordStates[cleanedWord] += 1;
+
     } else {
         modifiedText[index] = replaceWordPreservePunctuation(rawWord, safeRaw, originalWord)
         modifyText(modifiedText )
@@ -143,11 +94,6 @@ const handleWordClick = (word,originalWord,rawWord, index) => {
         wordStates[index] = 0
         setWordState(wordStates)
     }
-    //  wordStates[cleanedWord] = 0;
-
-   /* modifyText((prev) => prev.replace(new RegExp(`\\b${word}\\b`, "g"), newWord));
-    setHighlightedWords((prev) => new Set(prev).add(cleanedWord));
-    setWordState({ ...wordStates });*/
     setClickedWords((prev) => new Map(prev).set(originalWord, possibleSwaps[curWordState] || word));
   };
 
@@ -165,12 +111,6 @@ const handleWordClick = (word,originalWord,rawWord, index) => {
       return (
         <span
           key={index}
-        /*  onClick={() => handleWordClickSingle(cleanWord, originalWord,word,index)}
-          onDoubleClick={() => handleWordClick(cleanWord,originalWord,word,index)}
-          style={{
-            color: isHighlighted ? "red" : "black",
-            cursor: "pointer",
-          }} */
           onClick={() => handleWordClickSingle(word,currWordCleaned, originalWordCleaned,index)}
           onDoubleClick={() => handleWordClick(word,currWordCleaned, originalWordCleaned,index,)}
           style={{ color: isHighlighted ? "red" : "black", cursor: "pointer" }}
